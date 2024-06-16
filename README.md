@@ -1,5 +1,15 @@
 # Steps to reproduce in devcontainer
 
+This repo is a simplified app for discussing a problem with using candid interface in motoko.
+
+Most relevant files are:
+
+* [external/icrc1_ledger.did](https://github.com/f0i/motoko-blob-nat8/blob/main/external/icrc1_ledger.did) used for canister named ckusdc_ledger
+* [dfx.json](https://github.com/f0i/motoko-blob-nat8/blob/main/dfx.json) dependendies: frontend -> backend -> ckusdc_ledger
+* [backend/src/wallet.mo](https://github.com/f0i/motoko-blob-nat8/blob/main/src/backend/wallet.mo) improting the canister
+
+.devcontainer files and a setup script were added to reproduce the issue in a docker environment.
+
 ## Install dfx and mops:
 
 ```
