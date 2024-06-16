@@ -10,6 +10,11 @@ Most relevant files are:
 
 .devcontainer files and a setup script were added to reproduce the issue in a docker environment.
 
+Related issues:
+
+* https://forum.dfinity.org/t/imported-motoko-canister-has-wrong-type-nat8-instead-of-blob/21312
+* https://forum.dfinity.org/t/type-mismatch-in-ledger-canister-and-invoice-canister/13300
+
 ## Install dfx and mops:
 
 ```
