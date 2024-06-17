@@ -7,14 +7,14 @@ export type BackendActor = typeof backend;
 function App() {
 
   const test = async () => {
-    await backend.test() .then(console.log, console.error)
+    await backend.test().then(console.log, console.error)
   };
 
   return (
     <main className="flex flex-col items-center">
-                  <button onClick={loadAuctions} className="">
-                    Reload auctions
-                  </button>
+      <button onClick={test} className="">
+        Reload auctions
+      </button>
     </main>
   );
 }

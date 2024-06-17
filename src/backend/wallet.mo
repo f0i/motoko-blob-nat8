@@ -9,14 +9,14 @@ import Ledger "canister:ckusdc_ledger";
 module {
 
   type Subaccount = [Nat8];
-  public type Account = { owner : Principal; subaccount : ?Subaccount };
+  public type Account = { owner : Principal; subaccount : Null };
   public type TokenInfo = { name : Text; decimals : Nat8; fee : Nat };
   public type AccountBlob = { owner : Principal; subaccount : ?Blob };
 
   public func accountForUser(self : actor {}, user : Principal) : Account {
     let account = {
       owner = Principal.fromActor(self);
-      subaccount = ?principalToSubaccount(user);
+      subaccount = null; //?principalToSubaccount(user);
     };
     return account;
   };
@@ -24,7 +24,7 @@ module {
   public func accountForAuction(self : actor {}, id : Nat) : Account {
     let account : Account = {
       owner = Principal.fromActor(self);
-      subaccount = ?auctionToSubaccount(id);
+      subaccount = null //?auctionToSubaccount(id);
     };
     return account;
   };
@@ -74,8 +74,8 @@ module {
       buffer.add(0);
     };
     assert (buffer.size() == 32);
-    //return Blob.fromArray(Buffer.toArray(buffer));
     return Buffer.toArray(buffer);
+    //return Buffer.toArray(buffer);
   };
 
   public func getBalance(account : Account) : async Nat {
@@ -96,16 +96,16 @@ module {
     let fee = 10000; // one cent
 
     type TransferArgs = {
-      from_subaccount : ?Subaccount;
+      from_subaccount : Null;
       to : Account;
       amount : Nat;
       fee : ?Nat;
-      memo : ?[Nat8];
-      created_at_time : ?Nat64;
+      memo : Null;
+      created_at_time : Null;
     };
     let args = {
-      //from_subaccount = sender.subaccount;
-      from_subaccount = Blob.fromArray(sender.subaccount);
+      from_subaccount = null; //sender.subaccount;
+      //from_subaccount = ?Blob.fromArray(sender.subaccount);
       to = auction;
       // Cover the fee. Otherwise the transaction would fail if the user only send the exact funds.
       amount = amount - fee : Nat;
