@@ -8,15 +8,15 @@ import Ledger "canister:ckusdc_ledger";
 
 module {
 
-  type Subaccount = [Nat8];
-  public type Account = { owner : Principal; subaccount : ?[Nat8] };
+  type Subaccount = Blob;
+  public type Account = { owner : Principal; subaccount : ?Blob };
   public type TokenInfo = { name : Text; decimals : Nat8; fee : Nat };
   public type AccountBlob = { owner : Principal; subaccount : ?Blob };
 
   public func accountForUser(self : actor {}, user : Principal) : Account {
     let account = {
       owner = Principal.fromActor(self);
-      subaccount : ?[Nat8] = ?principalToSubaccount(user);
+      subaccount : ?Blob = ?principalToSubaccount(user);
     };
     return account;
   };
@@ -74,7 +74,7 @@ module {
       buffer.add(0);
     };
     assert (buffer.size() == 32);
-    return Buffer.toArray(buffer);
+    return Blob.fromArray(Buffer.toArray(buffer));
     //return Buffer.toArray(buffer);
   };
 
