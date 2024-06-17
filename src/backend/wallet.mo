@@ -9,14 +9,14 @@ import Ledger "canister:ckusdc_ledger";
 module {
 
   type Subaccount = [Nat8];
-  public type Account = { owner : Principal; subaccount : Null };
+  public type Account = { owner : Principal; subaccount : ?[Nat8] };
   public type TokenInfo = { name : Text; decimals : Nat8; fee : Nat };
   public type AccountBlob = { owner : Principal; subaccount : ?Blob };
 
   public func accountForUser(self : actor {}, user : Principal) : Account {
     let account = {
       owner = Principal.fromActor(self);
-      subaccount = null; //?principalToSubaccount(user);
+      subaccount : ?[Nat8] = ?principalToSubaccount(user);
     };
     return account;
   };
@@ -103,7 +103,7 @@ module {
       memo : Null;
       created_at_time : Null;
     };
-    let args = {
+    let args : TransferArgs = {
       from_subaccount = null; //sender.subaccount;
       //from_subaccount = ?Blob.fromArray(sender.subaccount);
       to = auction;
